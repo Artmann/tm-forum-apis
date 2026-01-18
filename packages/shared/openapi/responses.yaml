@@ -1,0 +1,111 @@
+BadRequest:
+  description: Bad Request
+  headers:
+    X-Request-Id:
+      $ref: './headers.yaml#/X-Request-Id'
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/error.yaml#/Error'
+      example:
+        code: '20'
+        reason: Bad Request
+        message: Invalid request body
+        status: '400'
+        '@type': Error
+
+Unauthorized:
+  description: Unauthorized
+  headers:
+    X-Request-Id:
+      $ref: './headers.yaml#/X-Request-Id'
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/error.yaml#/Error'
+      example:
+        code: '40'
+        reason: Unauthorized
+        message: Authentication required
+        status: '401'
+        '@type': Error
+
+Forbidden:
+  description: Forbidden
+  headers:
+    X-Request-Id:
+      $ref: './headers.yaml#/X-Request-Id'
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/error.yaml#/Error'
+      example:
+        code: '41'
+        reason: Forbidden
+        message: Access denied
+        status: '403'
+        '@type': Error
+
+NotFound:
+  description: Not Found
+  headers:
+    X-Request-Id:
+      $ref: './headers.yaml#/X-Request-Id'
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/error.yaml#/Error'
+      example:
+        code: '60'
+        reason: Not Found
+        message: Resource not found
+        status: '404'
+        '@type': Error
+
+MethodNotAllowed:
+  description: Method Not Allowed
+  headers:
+    X-Request-Id:
+      $ref: './headers.yaml#/X-Request-Id'
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/error.yaml#/Error'
+      example:
+        code: '61'
+        reason: Method Not Allowed
+        message: The requested method is not allowed
+        status: '405'
+        '@type': Error
+
+Conflict:
+  description: Conflict
+  headers:
+    X-Request-Id:
+      $ref: './headers.yaml#/X-Request-Id'
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/error.yaml#/Error'
+      example:
+        code: '62'
+        reason: Conflict
+        message: Resource conflict
+        status: '409'
+        '@type': Error
+
+InternalServerError:
+  description: Internal Server Error
+  headers:
+    X-Request-Id:
+      $ref: './headers.yaml#/X-Request-Id'
+  content:
+    application/json:
+      schema:
+        $ref: './schemas/error.yaml#/Error'
+      example:
+        code: '1'
+        reason: Internal Server Error
+        message: An unexpected error occurred
+        status: '500'
+        '@type': Error

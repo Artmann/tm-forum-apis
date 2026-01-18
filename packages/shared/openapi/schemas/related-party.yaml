@@ -1,0 +1,39 @@
+RelatedParty:
+  type: object
+  description: A party playing a role in an entity
+  required:
+    - '@referredType'
+    - role
+  properties:
+    id:
+      type: string
+      description: Unique identifier of the related party
+      example: 550e8400-e29b-41d4-a716-446655440000
+    href:
+      type: string
+      format: uri
+      description: Hyperlink reference to the related party
+      example: /tmf-api/partyManagement/v4/individual/550e8400-e29b-41d4-a716-446655440000
+    name:
+      type: string
+      description: Name of the related party
+      example: John Doe
+    role:
+      type: string
+      description: Role played by the related party
+      example: Owner
+    '@type':
+      type: string
+      description: Type of the related party reference
+      default: RelatedParty
+    '@baseType':
+      type: string
+      description: Base type of the related party
+    '@schemaLocation':
+      type: string
+      format: uri
+      description: A URI to a JSON-Schema file
+    '@referredType':
+      type: string
+      description: The actual type of the target instance
+      example: Individual

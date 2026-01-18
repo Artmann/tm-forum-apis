@@ -1,0 +1,14 @@
+TimePeriod:
+  type: object
+  description: A period of time, either as a deadline or a duration
+  properties:
+    startDateTime:
+      type: string
+      format: date-time
+      description: Start of the time period
+      example: '2024-01-01T00:00:00Z'
+    endDateTime:
+      type: string
+      format: date-time
+      description: End of the time period
+      example: '2024-12-31T23:59:59Z'

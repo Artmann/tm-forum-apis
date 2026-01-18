@@ -1,0 +1,89 @@
+ContactMedium:
+  type: object
+  description: Indicates the contact medium for contacting the party
+  required:
+    - mediumType
+    - characteristic
+  properties:
+    id:
+      type: string
+      description: Unique identifier of the contact medium
+      example: 550e8400-e29b-41d4-a716-446655440000
+    mediumType:
+      type: string
+      description: Type of the contact medium (email, phone, postal address, etc.)
+      example: email
+    preferred:
+      type: boolean
+      description: Indicates if this contact medium is the preferred one
+      default: false
+      example: true
+    characteristic:
+      $ref: '#/MediumCharacteristic'
+    validFor:
+      $ref: './time-period.yaml#/TimePeriod'
+    '@type':
+      type: string
+      description: Type of the contact medium
+      default: ContactMedium
+    '@baseType':
+      type: string
+      description: Base type of the contact medium
+    '@schemaLocation':
+      type: string
+      format: uri
+      description: A URI to a JSON-Schema file
+
+MediumCharacteristic:
+  type: object
+  description: Characteristic of the contact medium
+  properties:
+    city:
+      type: string
+      description: City
+      example: Springfield
+    contactType:
+      type: string
+      description: Type of contact (work, home, etc.)
+      example: work
+    country:
+      type: string
+      description: Country
+      example: USA
+    emailAddress:
+      type: string
+      format: email
+      description: Email address
+      example: john.doe@example.com
+    faxNumber:
+      type: string
+      description: Fax number
+      example: '+1-555-123-4568'
+    phoneNumber:
+      type: string
+      description: Phone number
+      example: '+1-555-123-4567'
+    postCode:
+      type: string
+      description: Postal code
+      example: '62701'
+    socialNetworkId:
+      type: string
+      description: Identifier of social network account
+      example: '@johndoe'
+    stateOrProvince:
+      type: string
+      description: State or province
+      example: Illinois
+    street1:
+      type: string
+      description: Street address line 1
+      example: 123 Main Street
+    street2:
+      type: string
+      description: Street address line 2
+      example: Suite 100
+    '@type':
+      type: string
+      description: Type of the medium characteristic
+      default: MediumCharacteristic

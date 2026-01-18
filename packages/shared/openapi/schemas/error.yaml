@@ -1,0 +1,38 @@
+Error:
+  type: object
+  description: TM Forum standard error response
+  required:
+    - code
+    - reason
+  properties:
+    code:
+      type: string
+      description: Application relevant detail, defined in the API or a common list
+      example: '60'
+    reason:
+      type: string
+      description: Explanation of the reason for the error
+      example: Not Found
+    message:
+      type: string
+      description: More details and corrective actions related to the error
+      example: Individual with id 550e8400-e29b-41d4-a716-446655440000 not found
+    status:
+      type: string
+      description: HTTP error code extension
+      example: '404'
+    referenceError:
+      type: string
+      format: uri
+      description: URI of documentation describing the error
+    '@type':
+      type: string
+      description: The class type of the error
+      default: Error
+    '@baseType':
+      type: string
+      description: The base type of the error
+    '@schemaLocation':
+      type: string
+      format: uri
+      description: A URI to a JSON-Schema file that defines additional attributes

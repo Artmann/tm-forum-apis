@@ -1,0 +1,18 @@
+X-Total-Count:
+  description: Total number of items matching criteria
+  schema:
+    type: integer
+  example: 100
+
+X-Result-Count:
+  description: Actual number of items returned in the response body
+  schema:
+    type: integer
+  example: 20
+
+X-Request-Id:
+  description: Unique identifier for the request, used for tracing and debugging
+  schema:
+    type: string
+    format: uuid
+  example: 550e8400-e29b-41d4-a716-446655440000

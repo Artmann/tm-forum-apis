@@ -1,0 +1,41 @@
+Fields:
+  name: fields
+  in: query
+  description: Comma-separated list of field names to include in the response
+  required: false
+  schema:
+    type: string
+  example: id,name,status
+
+Offset:
+  name: offset
+  in: query
+  description: Requested index for start of resources to be provided in response
+  required: false
+  schema:
+    type: integer
+    minimum: 0
+    default: 0
+  example: 0
+
+Limit:
+  name: limit
+  in: query
+  description: Requested number of resources to be provided in response
+  required: false
+  schema:
+    type: integer
+    minimum: 1
+    maximum: 100
+    default: 20
+  example: 20
+
+Id:
+  name: id
+  in: path
+  description: Identifier of the resource
+  required: true
+  schema:
+    type: string
+    format: uuid
+  example: 550e8400-e29b-41d4-a716-446655440000
