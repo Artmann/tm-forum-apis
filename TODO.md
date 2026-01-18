@@ -69,14 +69,14 @@ Refer to `SPEC.md` for detailed specifications and requirements.
 ### 2.2 @tm-forum/database
 
 - [x] Initialize package with `package.json` and `tsconfig.json`
-- [ ] Install Drizzle ORM and postgres driver
+- [x] Install Drizzle ORM and postgres driver
 - [x] Create `src/index.ts` as main export
-- [ ] Create `src/connection.ts` with database connection factory
-- [ ] Create `src/columns.ts` with common column definitions
-- [ ] Create `src/test-utils.ts` with createTestDatabase function
-- [ ] Create `src/test-utils.ts` with destroyTestDatabase function
+- [x] Create `src/connection.ts` with database connection factory
+- [x] Create `src/columns.ts` with common column definitions
+- [x] Create `src/test-utils.ts` with createTestDatabase function
+- [x] Create `src/test-utils.ts` with destroyTestDatabase function
 - [ ] Test ephemeral database creation/destruction works
-- [ ] Export all utilities from index.ts
+- [x] Export all utilities from index.ts
 
 ### 2.3 @tm-forum/tmf-common
 
