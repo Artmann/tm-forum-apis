@@ -124,115 +124,115 @@ Refer to `SPEC.md` for detailed specifications and requirements.
 
 ### 3.1 Project Setup
 
-- [ ] Initialize `apps/tmf632-party` with `package.json`
-- [ ] Create `tsconfig.json` extending base config
-- [ ] Add dependencies: hono, drizzle-orm, @tm-forum/* packages
-- [ ] Create `drizzle.config.ts`
-- [ ] Create `src/index.ts` with Hono app entry point
-- [ ] Create `src/db/client.ts` with database connection
+- [x] Initialize `apps/tmf632-party` with `package.json`
+- [x] Create `tsconfig.json` extending base config
+- [x] Add dependencies: hono, drizzle-orm, @tm-forum/* packages
+- [x] Create `drizzle.config.ts`
+- [x] Create `src/index.ts` with Hono app entry point
+- [x] Create `src/db/client.ts` with database connection
 
 ### 3.2 Database Schema
 
-- [ ] Create `src/db/schema.ts`
-- [ ] Define `parties` table (single table inheritance)
-- [ ] Define `party_characteristics` table
-- [ ] Define `contact_mediums` table
-- [ ] Define `related_parties` table
-- [ ] Define `event_subscriptions` table
+- [x] Create `src/db/schema.ts`
+- [x] Define `parties` table (single table inheritance)
+- [x] Define `party_characteristics` table
+- [x] Define `contact_mediums` table
+- [x] Define `related_parties` table
+- [x] Define `event_subscriptions` table
 - [ ] Generate initial migration with `drizzle-kit generate`
 - [ ] Test migration runs successfully
 
 ### 3.3 Types
 
-- [ ] Create `src/types/index.ts`
-- [ ] Define `IndividualDto` interface
-- [ ] Define `OrganizationDto` interface
-- [ ] Define `CreateIndividualRequest` interface
-- [ ] Define `UpdateIndividualRequest` interface
-- [ ] Define `CreateOrganizationRequest` interface
-- [ ] Define `UpdateOrganizationRequest` interface
+- [x] Create `src/types/index.ts`
+- [x] Define `IndividualDto` interface
+- [x] Define `OrganizationDto` interface
+- [x] Define `CreateIndividualRequest` interface
+- [x] Define `UpdateIndividualRequest` interface
+- [x] Define `CreateOrganizationRequest` interface
+- [x] Define `UpdateOrganizationRequest` interface
 
 ### 3.4 Individual Service
 
-- [ ] Create `src/services/individual.service.ts`
-- [ ] Implement `createIndividual(data)` method
-- [ ] Implement `findIndividualById(id)` method
-- [ ] Implement `listIndividuals(filters, pagination)` method
-- [ ] Implement `updateIndividual(id, data)` method
-- [ ] Implement `deleteIndividual(id)` method
-- [ ] Implement private `transformIndividual(model)` method
+- [x] Create `src/services/individual.service.ts`
+- [x] Implement `createIndividual(data)` method
+- [x] Implement `findIndividualById(id)` method
+- [x] Implement `listIndividuals(filters, pagination)` method
+- [x] Implement `updateIndividual(id, data)` method
+- [x] Implement `deleteIndividual(id)` method
+- [x] Implement private `transformIndividual(model)` method
 - [ ] Add event publishing on create/update/delete
 
 ### 3.5 Organization Service
 
-- [ ] Create `src/services/organization.service.ts`
-- [ ] Implement `createOrganization(data)` method
-- [ ] Implement `findOrganizationById(id)` method
-- [ ] Implement `listOrganizations(filters, pagination)` method
-- [ ] Implement `updateOrganization(id, data)` method
-- [ ] Implement `deleteOrganization(id)` method
-- [ ] Implement private `transformOrganization(model)` method
+- [x] Create `src/services/organization.service.ts`
+- [x] Implement `createOrganization(data)` method
+- [x] Implement `findOrganizationById(id)` method
+- [x] Implement `listOrganizations(filters, pagination)` method
+- [x] Implement `updateOrganization(id, data)` method
+- [x] Implement `deleteOrganization(id)` method
+- [x] Implement private `transformOrganization(model)` method
 - [ ] Add event publishing on create/update/delete
 
 ### 3.6 Hub Service
 
-- [ ] Create `src/services/hub.service.ts`
-- [ ] Implement `createSubscription(callback, query)` method
-- [ ] Implement `findSubscriptionById(id)` method
-- [ ] Implement `deleteSubscription(id)` method
+- [x] Create `src/services/hub.service.ts`
+- [x] Implement `createSubscription(callback, query)` method
+- [x] Implement `findSubscriptionById(id)` method
+- [x] Implement `deleteSubscription(id)` method
 
 ### 3.7 Routes
 
-- [ ] Create `src/routes/individual.ts`
-- [ ] Implement `GET /individual` - list individuals
-- [ ] Implement `GET /individual/:id` - get individual by id
-- [ ] Implement `POST /individual` - create individual
-- [ ] Implement `PATCH /individual/:id` - update individual
-- [ ] Implement `DELETE /individual/:id` - delete individual
+- [x] Create `src/routes/individual.ts`
+- [x] Implement `GET /individual` - list individuals
+- [x] Implement `GET /individual/:id` - get individual by id
+- [x] Implement `POST /individual` - create individual
+- [x] Implement `PATCH /individual/:id` - update individual
+- [x] Implement `DELETE /individual/:id` - delete individual
 
-- [ ] Create `src/routes/organization.ts`
-- [ ] Implement `GET /organization` - list organizations
-- [ ] Implement `GET /organization/:id` - get organization by id
-- [ ] Implement `POST /organization` - create organization
-- [ ] Implement `PATCH /organization/:id` - update organization
-- [ ] Implement `DELETE /organization/:id` - delete organization
+- [x] Create `src/routes/organization.ts`
+- [x] Implement `GET /organization` - list organizations
+- [x] Implement `GET /organization/:id` - get organization by id
+- [x] Implement `POST /organization` - create organization
+- [x] Implement `PATCH /organization/:id` - update organization
+- [x] Implement `DELETE /organization/:id` - delete organization
 
-- [ ] Create `src/routes/hub.ts`
-- [ ] Implement `POST /hub` - create subscription
-- [ ] Implement `DELETE /hub/:id` - delete subscription
+- [x] Create `src/routes/hub.ts`
+- [x] Implement `POST /hub` - create subscription
+- [x] Implement `DELETE /hub/:id` - delete subscription
 
 ### 3.8 Wire Up App
 
-- [ ] Register all routes in `src/index.ts`
-- [ ] Apply middleware (error handler, request id, etc.)
-- [ ] Set base path `/tmf-api/partyManagement/v4`
+- [x] Register all routes in `src/index.ts`
+- [x] Apply middleware (error handler, request id, etc.)
+- [x] Set base path `/tmf-api/partyManagement/v4`
 - [ ] Create `Dockerfile`
-- [ ] Test app starts and responds to requests
+- [x] Test app starts and responds to requests
 
 ### 3.9 Integration Tests
 
-- [ ] Create `tests/setup.ts` with test database helpers
-- [ ] Create `tests/individual.test.ts`
-- [ ] Test POST /individual creates individual
-- [ ] Test GET /individual/:id returns individual
-- [ ] Test GET /individual returns list with pagination
-- [ ] Test GET /individual with ?fields= returns partial response
-- [ ] Test PATCH /individual/:id updates individual
-- [ ] Test DELETE /individual/:id removes individual
-- [ ] Test 404 for non-existent individual
+- [x] Create `tests/setup.ts` with test database helpers
+- [x] Create `tests/individual.test.ts`
+- [x] Test POST /individual creates individual
+- [x] Test GET /individual/:id returns individual
+- [x] Test GET /individual returns list with pagination
+- [x] Test GET /individual with ?fields= returns partial response
+- [x] Test PATCH /individual/:id updates individual
+- [x] Test DELETE /individual/:id removes individual
+- [x] Test 404 for non-existent individual
 
-- [ ] Create `tests/organization.test.ts`
-- [ ] Test POST /organization creates organization
-- [ ] Test GET /organization/:id returns organization
-- [ ] Test GET /organization returns list with pagination
-- [ ] Test GET /organization with ?fields= returns partial response
-- [ ] Test PATCH /organization/:id updates organization
-- [ ] Test DELETE /organization/:id removes organization
-- [ ] Test 404 for non-existent organization
+- [x] Create `tests/organization.test.ts`
+- [x] Test POST /organization creates organization
+- [x] Test GET /organization/:id returns organization
+- [x] Test GET /organization returns list with pagination
+- [x] Test GET /organization with ?fields= returns partial response
+- [x] Test PATCH /organization/:id updates organization
+- [x] Test DELETE /organization/:id removes organization
+- [x] Test 404 for non-existent organization
 
-- [ ] Create `tests/hub.test.ts`
-- [ ] Test POST /hub creates subscription
-- [ ] Test DELETE /hub/:id removes subscription
+- [x] Create `tests/hub.test.ts`
+- [x] Test POST /hub creates subscription
+- [x] Test DELETE /hub/:id removes subscription
 
 ### 3.10 OpenAPI Specification
 
