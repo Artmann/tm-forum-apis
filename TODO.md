@@ -104,7 +104,7 @@ Refer to `SPEC.md` for detailed specifications and requirements.
 - [x] Create `src/events/hub-manager.ts` - manages subscriptions and callbacks
 
 - [x] Export all middleware and utilities from index.ts
-- [ ] Write basic tests for middleware
+- [x] Write basic tests for middleware
 
 ### 2.4 @tm-forum/shared OpenAPI Components
 
