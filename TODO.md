@@ -81,29 +81,29 @@ Refer to `SPEC.md` for detailed specifications and requirements.
 ### 2.3 @tm-forum/tmf-common
 
 - [x] Initialize package with `package.json` and `tsconfig.json`
-- [ ] Install Hono
+- [x] Install Hono
 - [x] Create `src/index.ts` as main export
 
 #### Middleware
 
-- [ ] Create `src/middleware/fields-filter.ts` - parses `?fields=` and filters response
-- [ ] Create `src/middleware/error-handler.ts` - converts errors to TM Forum format
-- [ ] Create `src/middleware/request-id.ts` - adds X-Request-Id header
-- [ ] Create `src/middleware/pagination.ts` - parses offset/limit, adds response headers
+- [x] Create `src/middleware/fields-filter.ts` - parses `?fields=` and filters response
+- [x] Create `src/middleware/error-handler.ts` - converts errors to TM Forum format
+- [x] Create `src/middleware/request-id.ts` - adds X-Request-Id header
+- [x] Create `src/middleware/pagination.ts` - parses offset/limit, adds response headers
 
 #### Utilities
 
-- [ ] Create `src/utils/href.ts` - createHref function for generating entity hrefs
-- [ ] Create `src/utils/response.ts` - helper functions for standard responses
+- [x] Create `src/utils/href.ts` - createHref function for generating entity hrefs
+- [x] Create `src/utils/response.ts` - helper functions for standard responses
 
 #### Events
 
-- [ ] Install ioredis
-- [ ] Create `src/events/publisher.ts` - Redis pub/sub event publisher
-- [ ] Create `src/events/types.ts` - event type definitions
-- [ ] Create `src/events/hub-manager.ts` - manages subscriptions and callbacks
+- [x] Install ioredis
+- [x] Create `src/events/publisher.ts` - Redis pub/sub event publisher
+- [x] Create `src/events/types.ts` - event type definitions
+- [x] Create `src/events/hub-manager.ts` - manages subscriptions and callbacks
 
-- [ ] Export all middleware and utilities from index.ts
+- [x] Export all middleware and utilities from index.ts
 - [ ] Write basic tests for middleware
 
 ### 2.4 @tm-forum/shared OpenAPI Components

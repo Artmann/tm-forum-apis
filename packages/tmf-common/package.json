@@ -13,9 +13,12 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test": "bun test"
   },
   "dependencies": {
-    "@tm-forum/shared": "workspace:*"
+    "@tm-forum/shared": "workspace:*",
+    "hono": "^4.6.18",
+    "ioredis": "^5.4.2"
   }
 }
