@@ -12,15 +12,17 @@ import type {
   UpdateIndividualRequest
 } from '../types'
 import type { PaginationParams } from '@tm-forum/shared'
-import { NotFoundError } from '@tm-forum/tmf-common'
+import { NotFoundError, type EventPublisher } from '@tm-forum/tmf-common'
 
 export class IndividualService {
   private db: Database
   private baseUrl: string
+  private eventPublisher?: EventPublisher
 
-  constructor(db: Database, baseUrl: string) {
+  constructor(db: Database, baseUrl: string, eventPublisher?: EventPublisher) {
     this.db = db
     this.baseUrl = baseUrl
+    this.eventPublisher = eventPublisher
   }
 
   async createIndividual(data: CreateIndividualRequest): Promise<IndividualDto> {
@@ -94,7 +96,21 @@ export class IndividualService {
       )
     }
 
-    return this.findIndividualById(party.id)
+    const individual = await this.findIndividualById(party.id)
+
+    if (this.eventPublisher) {
+      const event = this.eventPublisher.createEvent({
+        eventType: 'IndividualCreateEvent',
+        domain: 'partyManagement',
+        title: 'Individual created',
+        description: `Individual ${individual.givenName ?? ''} ${individual.familyName ?? ''} has been created`,
+        entityType: 'individual',
+        entity: individual
+      })
+      await this.eventPublisher.publish(event)
+    }
+
+    return individual
   }
 
   async findIndividualById(id: string): Promise<IndividualDto> {
@@ -173,7 +189,21 @@ export class IndividualService {
       })
       .where(eq(parties.id, id))
 
-    return this.findIndividualById(id)
+    const individual = await this.findIndividualById(id)
+
+    if (this.eventPublisher) {
+      const event = this.eventPublisher.createEvent({
+        eventType: 'IndividualAttributeValueChangeEvent',
+        domain: 'partyManagement',
+        title: 'Individual updated',
+        description: `Individual ${individual.givenName ?? ''} ${individual.familyName ?? ''} has been updated`,
+        entityType: 'individual',
+        entity: individual
+      })
+      await this.eventPublisher.publish(event)
+    }
+
+    return individual
   }
 
   async deleteIndividual(id: string): Promise<void> {
@@ -185,7 +215,21 @@ export class IndividualService {
       throw new NotFoundError('Individual', id)
     }
 
+    const individual = await this.findIndividualById(id)
+
     await this.db.delete(parties).where(eq(parties.id, id))
+
+    if (this.eventPublisher) {
+      const event = this.eventPublisher.createEvent({
+        eventType: 'IndividualDeleteEvent',
+        domain: 'partyManagement',
+        title: 'Individual deleted',
+        description: `Individual ${individual.givenName ?? ''} ${individual.familyName ?? ''} has been deleted`,
+        entityType: 'individual',
+        entity: { id }
+      })
+      await this.eventPublisher.publish(event)
+    }
   }
 
   private transformIndividual(party: any): IndividualDto {

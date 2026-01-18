@@ -1,0 +1,923 @@
+openapi: 3.0.3
+info:
+  title: TMF632 Party Management API
+  description: |
+    This is the TM Forum Party Management API (TMF632) implementation.
+
+    The Party API provides a standardized mechanism for party management such as
+    Individual or Organization party information.
+
+    Party can be an individual or an organization that has any kind of relation
+    with the enterprise.
+  version: 4.0.0
+  contact:
+    name: TM Forum
+    url: https://www.tmforum.org
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+  - url: http://localhost:3632/tmf-api/partyManagement/v4
+    description: Local development server
+
+tags:
+  - name: Individual
+    description: Operations for managing Individual party resources
+  - name: Organization
+    description: Operations for managing Organization party resources
+  - name: Hub
+    description: Operations for event subscription management
+
+paths:
+  /individual:
+    get:
+      tags:
+        - Individual
+      summary: List or find Individual objects
+      description: This operation lists or finds Individual entities
+      operationId: listIndividuals
+      parameters:
+        - $ref: '#/components/parameters/Fields'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              $ref: '#/components/headers/X-Total-Count'
+            X-Result-Count:
+              $ref: '#/components/headers/X-Result-Count'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Individual'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Individual
+      summary: Create an Individual
+      description: This operation creates an Individual entity
+      operationId: createIndividual
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndividualCreate'
+            example:
+              givenName: John
+              familyName: Doe
+              gender: male
+              birthDate: '1990-01-15'
+              nationality: American
+              contactMedium:
+                - mediumType: email
+                  preferred: true
+                  characteristic:
+                    emailAddress: john.doe@example.com
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Individual'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /individual/{id}:
+    get:
+      tags:
+        - Individual
+      summary: Retrieve an Individual
+      description: This operation retrieves an Individual entity by ID
+      operationId: retrieveIndividual
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - $ref: '#/components/parameters/Fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Individual'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      tags:
+        - Individual
+      summary: Update an Individual
+      description: This operation updates an Individual entity
+      operationId: patchIndividual
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndividualUpdate'
+            example:
+              givenName: Johnny
+              maritalStatus: married
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Individual'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Individual
+      summary: Delete an Individual
+      description: This operation deletes an Individual entity
+      operationId: deleteIndividual
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /organization:
+    get:
+      tags:
+        - Organization
+      summary: List or find Organization objects
+      description: This operation lists or finds Organization entities
+      operationId: listOrganizations
+      parameters:
+        - $ref: '#/components/parameters/Fields'
+        - $ref: '#/components/parameters/Offset'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Success
+          headers:
+            X-Total-Count:
+              $ref: '#/components/headers/X-Total-Count'
+            X-Result-Count:
+              $ref: '#/components/headers/X-Result-Count'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Organization
+      summary: Create an Organization
+      description: This operation creates an Organization entity
+      operationId: createOrganization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationCreate'
+            example:
+              name: Acme Corporation
+              tradingName: Acme Corp
+              organizationType: Company
+              isLegalEntity: true
+              isHeadOffice: true
+              contactMedium:
+                - mediumType: email
+                  preferred: true
+                  characteristic:
+                    emailAddress: contact@acme.com
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /organization/{id}:
+    get:
+      tags:
+        - Organization
+      summary: Retrieve an Organization
+      description: This operation retrieves an Organization entity by ID
+      operationId: retrieveOrganization
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - $ref: '#/components/parameters/Fields'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      tags:
+        - Organization
+      summary: Update an Organization
+      description: This operation updates an Organization entity
+      operationId: patchOrganization
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationUpdate'
+            example:
+              tradingName: Acme Corp Inc.
+              status: active
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Organization
+      summary: Delete an Organization
+      description: This operation deletes an Organization entity
+      operationId: deleteOrganization
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Deleted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /hub:
+    post:
+      tags:
+        - Hub
+      summary: Register a listener
+      description: Sets the communication endpoint address for event notifications
+      operationId: registerListener
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventSubscriptionInput'
+            example:
+              callback: https://example.com/webhook/party-events
+              query: eventType=IndividualCreateEvent
+      responses:
+        '201':
+          description: Subscribed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSubscription'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /hub/{id}:
+    delete:
+      tags:
+        - Hub
+      summary: Unregister a listener
+      description: Removes a listener subscription
+      operationId: unregisterListener
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Unsubscribed
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: Identifier of the resource
+      schema:
+        type: string
+        format: uuid
+    Fields:
+      name: fields
+      in: query
+      description: Comma-separated list of field names to include in the response
+      schema:
+        type: string
+    Offset:
+      name: offset
+      in: query
+      description: Requested index for start of resources
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Requested number of resources
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+
+  headers:
+    X-Total-Count:
+      description: Total number of items matching criteria
+      schema:
+        type: integer
+    X-Result-Count:
+      description: Actual number of items returned in the response body
+      schema:
+        type: integer
+
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: '400'
+            reason: Bad Request
+            message: Invalid request body
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: '404'
+            reason: Not Found
+            message: Resource not found
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: '500'
+            reason: Internal Server Error
+            message: An unexpected error occurred
+
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - reason
+      properties:
+        code:
+          type: string
+          description: Application error code
+        reason:
+          type: string
+          description: Text that explains the reason for error
+        message:
+          type: string
+          description: More details about the error
+        status:
+          type: string
+          description: HTTP error code extension
+        referenceError:
+          type: string
+          format: uri
+          description: URI of documentation describing the error
+        '@type':
+          type: string
+          default: Error
+
+    TimePeriod:
+      type: object
+      description: A period of time
+      properties:
+        startDateTime:
+          type: string
+          format: date-time
+          description: Start of the time period
+        endDateTime:
+          type: string
+          format: date-time
+          description: End of the time period
+
+    Characteristic:
+      type: object
+      description: Describes a characteristic of an entity
+      required:
+        - name
+        - value
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        name:
+          type: string
+          description: Name of the characteristic
+        value:
+          description: The value of the characteristic
+          oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: object
+            - type: array
+        valueType:
+          type: string
+          description: Data type of the value
+        '@type':
+          type: string
+          default: Characteristic
+
+    MediumCharacteristic:
+      type: object
+      description: Characteristic of the contact medium
+      properties:
+        city:
+          type: string
+          description: City
+        contactType:
+          type: string
+          description: Type of contact (work, home, etc.)
+        country:
+          type: string
+          description: Country
+        emailAddress:
+          type: string
+          format: email
+          description: Email address
+        faxNumber:
+          type: string
+          description: Fax number
+        phoneNumber:
+          type: string
+          description: Phone number
+        postCode:
+          type: string
+          description: Postal code
+        socialNetworkId:
+          type: string
+          description: Social network account identifier
+        stateOrProvince:
+          type: string
+          description: State or province
+        street1:
+          type: string
+          description: Street address line 1
+        street2:
+          type: string
+          description: Street address line 2
+        '@type':
+          type: string
+          default: MediumCharacteristic
+
+    ContactMedium:
+      type: object
+      description: Contact medium for the party
+      required:
+        - mediumType
+        - characteristic
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        mediumType:
+          type: string
+          description: Type of contact medium (email, phone, postal, etc.)
+        preferred:
+          type: boolean
+          default: false
+          description: If true, indicates this is the preferred contact medium
+        characteristic:
+          $ref: '#/components/schemas/MediumCharacteristic'
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        '@type':
+          type: string
+          default: ContactMedium
+
+    RelatedParty:
+      type: object
+      description: Related entity reference
+      required:
+        - '@referredType'
+        - role
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the related party
+        href:
+          type: string
+          format: uri
+          description: Hyperlink reference to the related party
+        name:
+          type: string
+          description: Name of the related party
+        role:
+          type: string
+          description: Role of the related party
+        '@referredType':
+          type: string
+          description: Actual type of the related party
+        '@type':
+          type: string
+          default: RelatedParty
+
+    Individual:
+      type: object
+      description: Individual represents a single human being
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          readOnly: true
+        href:
+          type: string
+          format: uri
+          description: Hyperlink reference
+          readOnly: true
+        birthDate:
+          type: string
+          format: date
+          description: Birth date
+        countryOfBirth:
+          type: string
+          description: Country where the individual was born
+        deathDate:
+          type: string
+          format: date
+          description: Death date
+        familyName:
+          type: string
+          description: Family name (surname)
+        formattedName:
+          type: string
+          description: A fully formatted name
+        fullName:
+          type: string
+          description: Full name of the individual
+        gender:
+          type: string
+          description: Gender
+        givenName:
+          type: string
+          description: Given name (first name)
+        location:
+          type: string
+          description: Location of the individual
+        maritalStatus:
+          type: string
+          description: Marital status
+        middleName:
+          type: string
+          description: Middle name
+        nationality:
+          type: string
+          description: Nationality
+        placeOfBirth:
+          type: string
+          description: Place where the individual was born
+        status:
+          type: string
+          description: Status of the individual
+        title:
+          type: string
+          description: Title (Mr., Mrs., Dr., etc.)
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        partyCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        '@type':
+          type: string
+          default: Individual
+        '@baseType':
+          type: string
+          default: Party
+
+    IndividualCreate:
+      type: object
+      description: Input for creating an Individual
+      properties:
+        birthDate:
+          type: string
+          format: date
+        countryOfBirth:
+          type: string
+        deathDate:
+          type: string
+          format: date
+        familyName:
+          type: string
+        formattedName:
+          type: string
+        fullName:
+          type: string
+        gender:
+          type: string
+        givenName:
+          type: string
+        location:
+          type: string
+        maritalStatus:
+          type: string
+        middleName:
+          type: string
+        nationality:
+          type: string
+        placeOfBirth:
+          type: string
+        status:
+          type: string
+        title:
+          type: string
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        partyCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+
+    IndividualUpdate:
+      type: object
+      description: Input for updating an Individual
+      properties:
+        birthDate:
+          type: string
+          format: date
+        countryOfBirth:
+          type: string
+        deathDate:
+          type: string
+          format: date
+        familyName:
+          type: string
+        formattedName:
+          type: string
+        fullName:
+          type: string
+        gender:
+          type: string
+        givenName:
+          type: string
+        location:
+          type: string
+        maritalStatus:
+          type: string
+        middleName:
+          type: string
+        nationality:
+          type: string
+        placeOfBirth:
+          type: string
+        status:
+          type: string
+        title:
+          type: string
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        partyCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+
+    Organization:
+      type: object
+      description: Organization represents a group of people
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          readOnly: true
+        href:
+          type: string
+          format: uri
+          description: Hyperlink reference
+          readOnly: true
+        isHeadOffice:
+          type: boolean
+          description: If true, indicates this is the head office
+        isLegalEntity:
+          type: boolean
+          description: If true, the organization is a legal entity
+        name:
+          type: string
+          description: Organization name
+        nameType:
+          type: string
+          description: Type of name (legal, trade, etc.)
+        organizationType:
+          type: string
+          description: Type of organization
+        status:
+          type: string
+          description: Status of the organization
+        tradingName:
+          type: string
+          description: Trading name
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        partyCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+        '@type':
+          type: string
+          default: Organization
+        '@baseType':
+          type: string
+          default: Party
+
+    OrganizationCreate:
+      type: object
+      description: Input for creating an Organization
+      properties:
+        isHeadOffice:
+          type: boolean
+        isLegalEntity:
+          type: boolean
+        name:
+          type: string
+        nameType:
+          type: string
+        organizationType:
+          type: string
+        status:
+          type: string
+        tradingName:
+          type: string
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        partyCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+
+    OrganizationUpdate:
+      type: object
+      description: Input for updating an Organization
+      properties:
+        isHeadOffice:
+          type: boolean
+        isLegalEntity:
+          type: boolean
+        name:
+          type: string
+        nameType:
+          type: string
+        organizationType:
+          type: string
+        status:
+          type: string
+        tradingName:
+          type: string
+        validFor:
+          $ref: '#/components/schemas/TimePeriod'
+        contactMedium:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactMedium'
+        partyCharacteristic:
+          type: array
+          items:
+            $ref: '#/components/schemas/Characteristic'
+        relatedParty:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedParty'
+
+    EventSubscription:
+      type: object
+      description: Event subscription resource
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier
+          readOnly: true
+        callback:
+          type: string
+          format: uri
+          description: The callback URL to send notifications
+        query:
+          type: string
+          description: Query to filter events
+
+    EventSubscriptionInput:
+      type: object
+      description: Input for creating an event subscription
+      required:
+        - callback
+      properties:
+        callback:
+          type: string
+          format: uri
+          description: The callback URL to send notifications
+        query:
+          type: string
+          description: Query to filter events

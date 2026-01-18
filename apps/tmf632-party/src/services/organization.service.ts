@@ -12,15 +12,17 @@ import type {
   UpdateOrganizationRequest
 } from '../types'
 import type { PaginationParams } from '@tm-forum/shared'
-import { NotFoundError } from '@tm-forum/tmf-common'
+import { NotFoundError, type EventPublisher } from '@tm-forum/tmf-common'
 
 export class OrganizationService {
   private db: Database
   private baseUrl: string
+  private eventPublisher?: EventPublisher
 
-  constructor(db: Database, baseUrl: string) {
+  constructor(db: Database, baseUrl: string, eventPublisher?: EventPublisher) {
     this.db = db
     this.baseUrl = baseUrl
+    this.eventPublisher = eventPublisher
   }
 
   async createOrganization(
@@ -88,7 +90,21 @@ export class OrganizationService {
       )
     }
 
-    return this.findOrganizationById(party.id)
+    const organization = await this.findOrganizationById(party.id)
+
+    if (this.eventPublisher) {
+      const event = this.eventPublisher.createEvent({
+        eventType: 'OrganizationCreateEvent',
+        domain: 'partyManagement',
+        title: 'Organization created',
+        description: `Organization ${organization.name ?? ''} has been created`,
+        entityType: 'organization',
+        entity: organization
+      })
+      await this.eventPublisher.publish(event)
+    }
+
+    return organization
   }
 
   async findOrganizationById(id: string): Promise<OrganizationDto> {
@@ -159,7 +175,21 @@ export class OrganizationService {
       })
       .where(eq(parties.id, id))
 
-    return this.findOrganizationById(id)
+    const organization = await this.findOrganizationById(id)
+
+    if (this.eventPublisher) {
+      const event = this.eventPublisher.createEvent({
+        eventType: 'OrganizationAttributeValueChangeEvent',
+        domain: 'partyManagement',
+        title: 'Organization updated',
+        description: `Organization ${organization.name ?? ''} has been updated`,
+        entityType: 'organization',
+        entity: organization
+      })
+      await this.eventPublisher.publish(event)
+    }
+
+    return organization
   }
 
   async deleteOrganization(id: string): Promise<void> {
@@ -171,7 +201,21 @@ export class OrganizationService {
       throw new NotFoundError('Organization', id)
     }
 
+    const organization = await this.findOrganizationById(id)
+
     await this.db.delete(parties).where(eq(parties.id, id))
+
+    if (this.eventPublisher) {
+      const event = this.eventPublisher.createEvent({
+        eventType: 'OrganizationDeleteEvent',
+        domain: 'partyManagement',
+        title: 'Organization deleted',
+        description: `Organization ${organization.name ?? ''} has been deleted`,
+        entityType: 'organization',
+        entity: { id }
+      })
+      await this.eventPublisher.publish(event)
+    }
   }
 
   private transformOrganization(party: any): OrganizationDto {
