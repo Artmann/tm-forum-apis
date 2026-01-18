@@ -8,3 +8,5 @@ changes.
 
 Feel free to add more tasks to @TODO.md if you find something that needs to be
 done.
+
+Output <promise>COMPLETE</promise> when all tasks in @TODO.md are done.
