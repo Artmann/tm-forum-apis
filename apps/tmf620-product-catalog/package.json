@@ -1,0 +1,16 @@
+{
+  "name": "@tm-forum/tmf620-product-catalog",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@tm-forum/database": "workspace:*",
+    "@tm-forum/shared": "workspace:*",
+    "@tm-forum/tmf-common": "workspace:*"
+  }
+}

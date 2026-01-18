@@ -12,40 +12,40 @@ Refer to `SPEC.md` for detailed specifications and requirements.
 
 ### 1.1 Initialize Monorepo
 
-- [ ] Create project directory `tm-forum-apis`
-- [ ] Initialize Turborepo with `bunx create-turbo@latest`
-- [ ] Configure Bun workspaces in root `package.json`
-- [ ] Create base `tsconfig.json` with strict mode enabled
-- [ ] Create `.prettierrc` with project settings (see SPEC.md)
-- [ ] Create `.gitignore` (node_modules, dist, .env, etc.)
-- [ ] Initialize git repository
+- [x] Create project directory `tm-forum-apis`
+- [x] Initialize Turborepo with `bunx create-turbo@latest`
+- [x] Configure Bun workspaces in root `package.json`
+- [x] Create base `tsconfig.json` with strict mode enabled
+- [x] Create `.prettierrc` with project settings (see SPEC.md)
+- [x] Create `.gitignore` (node_modules, dist, .env, etc.)
+- [x] Initialize git repository
 
 ### 1.2 Create Directory Structure
 
-- [ ] Create `apps/` directory
-- [ ] Create `apps/tmf620-product-catalog/` placeholder
-- [ ] Create `apps/tmf629-customer/` placeholder
-- [ ] Create `apps/tmf632-party/` placeholder
-- [ ] Create `apps/tmf673-geographic-address/` placeholder
-- [ ] Create `packages/` directory
-- [ ] Create `packages/shared/` directory
-- [ ] Create `packages/tmf-common/` directory
-- [ ] Create `packages/database/` directory
-- [ ] Create `docker/` directory
+- [x] Create `apps/` directory
+- [x] Create `apps/tmf620-product-catalog/` placeholder
+- [x] Create `apps/tmf629-customer/` placeholder
+- [x] Create `apps/tmf632-party/` placeholder
+- [x] Create `apps/tmf673-geographic-address/` placeholder
+- [x] Create `packages/` directory
+- [x] Create `packages/shared/` directory
+- [x] Create `packages/tmf-common/` directory
+- [x] Create `packages/database/` directory
+- [x] Create `docker/` directory
 
 ### 1.3 Configure Turborepo
 
-- [ ] Create `turbo.json` with pipeline configuration
-- [ ] Define `build`, `dev`, `test`, `lint` pipelines
-- [ ] Configure task dependencies (shared packages build first)
+- [x] Create `turbo.json` with pipeline configuration
+- [x] Define `build`, `dev`, `test`, `lint` pipelines
+- [x] Configure task dependencies (shared packages build first)
 
 ### 1.4 Docker Setup
 
-- [ ] Create `docker/docker-compose.yml` with PostgreSQL and Redis
-- [ ] Create `docker/init-databases.sql` to create the 4 databases
-- [ ] Add health checks for both services
+- [x] Create `docker/docker-compose.yml` with PostgreSQL and Redis
+- [x] Create `docker/init-databases.sql` to create the 4 databases
+- [x] Add health checks for both services
 - [ ] Test that `docker compose up` works correctly
-- [ ] Document Docker commands in README
+- [x] Document Docker commands in README
 
 ---
 
@@ -53,24 +53,24 @@ Refer to `SPEC.md` for detailed specifications and requirements.
 
 ### 2.1 @tm-forum/shared
 
-- [ ] Initialize package with `package.json` and `tsconfig.json`
-- [ ] Create `src/index.ts` as main export
-- [ ] Create `src/types/base.ts` with TMForumEntity interface
-- [ ] Create `src/types/related-party.ts` with RelatedParty interface
-- [ ] Create `src/types/time-period.ts` with TimePeriod interface
-- [ ] Create `src/types/characteristic.ts` with Characteristic interface
-- [ ] Create `src/types/contact-medium.ts` with ContactMedium interface
-- [ ] Create `src/types/error.ts` with TMForumError interface
-- [ ] Create `src/types/pagination.ts` with pagination types
-- [ ] Create `src/types/event.ts` with TMForumEvent and EventType types
-- [ ] Export all types from index.ts
+- [x] Initialize package with `package.json` and `tsconfig.json`
+- [x] Create `src/index.ts` as main export
+- [x] Create `src/types/base.ts` with TMForumEntity interface
+- [x] Create `src/types/related-party.ts` with RelatedParty interface
+- [x] Create `src/types/time-period.ts` with TimePeriod interface
+- [x] Create `src/types/characteristic.ts` with Characteristic interface
+- [x] Create `src/types/contact-medium.ts` with ContactMedium interface
+- [x] Create `src/types/error.ts` with TMForumError interface
+- [x] Create `src/types/pagination.ts` with pagination types
+- [x] Create `src/types/event.ts` with TMForumEvent and EventType types
+- [x] Export all types from index.ts
 - [ ] Verify package builds correctly
 
 ### 2.2 @tm-forum/database
 
-- [ ] Initialize package with `package.json` and `tsconfig.json`
+- [x] Initialize package with `package.json` and `tsconfig.json`
 - [ ] Install Drizzle ORM and postgres driver
-- [ ] Create `src/index.ts` as main export
+- [x] Create `src/index.ts` as main export
 - [ ] Create `src/connection.ts` with database connection factory
 - [ ] Create `src/columns.ts` with common column definitions
 - [ ] Create `src/test-utils.ts` with createTestDatabase function
@@ -80,9 +80,9 @@ Refer to `SPEC.md` for detailed specifications and requirements.
 
 ### 2.3 @tm-forum/tmf-common
 
-- [ ] Initialize package with `package.json` and `tsconfig.json`
+- [x] Initialize package with `package.json` and `tsconfig.json`
 - [ ] Install Hono
-- [ ] Create `src/index.ts` as main export
+- [x] Create `src/index.ts` as main export
 
 #### Middleware
 
