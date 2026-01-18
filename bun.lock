@@ -27,6 +27,12 @@
         "@tm-forum/database": "workspace:*",
         "@tm-forum/shared": "workspace:*",
         "@tm-forum/tmf-common": "workspace:*",
+        "drizzle-orm": "^0.38.3",
+        "hono": "^4.6.18",
+        "postgres": "^3.4.5",
+      },
+      "devDependencies": {
+        "drizzle-kit": "^0.30.1",
       },
     },
     "apps/tmf632-party": {
